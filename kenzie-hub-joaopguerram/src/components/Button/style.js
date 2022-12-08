@@ -1,0 +1,33 @@
+import styled from "styled-components";
+export const ButtonStyle = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 13px 20px;
+  gap: 10px;
+  background: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: 5px;
+  width: 100%;
+  height: 38px;
+  color: var(--color-Grey-0);
+  font-style: normal;
+  font-weight: 500;
+  font-size: var(--headline);
+  line-height: 19px;
+  cursor: pointer;
+`;
+export const ButtonStyleGrey = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: var(--color-Grey-0);
+  gap: 10.15px;
+  background: var(--color-Grey-3);
+  border-radius: 4px;
+  width: 90px;
+  cursor: pointer;
+`;
