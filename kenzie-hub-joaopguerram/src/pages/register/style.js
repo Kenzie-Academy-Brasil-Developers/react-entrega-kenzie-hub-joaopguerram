@@ -1,5 +1,5 @@
 import styled from "styled-components";
-const RegisterStyle = styled.div`
+export const RegisterPage = styled.div`
   background-color: var(--color-Grey-4);
   width: 100vw;
   display: flex;
@@ -27,6 +27,7 @@ const RegisterStyle = styled.div`
     height: 35.95px;
   }
   form {
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     background-color: var(--color-Grey-3);
@@ -34,6 +35,16 @@ const RegisterStyle = styled.div`
     border-radius: 5px;
     padding: 20px;
     width: 90%;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--color-Grey-1);
+      border-radius: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
     input {
       width: 100%;
       height: 38.5px;
@@ -124,5 +135,3 @@ const RegisterStyle = styled.div`
     }
   }
 `;
-
-export default RegisterStyle;

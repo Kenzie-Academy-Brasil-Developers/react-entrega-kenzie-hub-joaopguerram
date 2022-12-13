@@ -1,44 +1,18 @@
-import RegisterStyle from "./style.js";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
+import { RegisterPage } from "./style";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { Button } from "../../components/Button";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  notifyErrorRegister,
-  notifySucessRegister,
-} from "../../components/Toastify/index.jsx";
-import Button from "../../components/Button/index.jsx";
+import { useContext } from "react";
+import { RegisterContext } from "../../contexts/TechContexts";
+import { formSchema } from "../../Validors/schema.jsx";
+import { UserContext } from "../../contexts/UserContext";
 
 const RegisterUser = () => {
-  const navigate = useNavigate();
-  const cellType =
-    /^\s*(\d{2}|\d{0})[-. ]?(\d{5}|\d{4})[-. ]?(\d{4})[-. ]?\s*$/;
-  const passwordType =
-    /^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{6,15}$/;
-  const formSchema = yup.object().shape({
-    name: yup.string().required("Nome Obrigatório"),
-    email: yup.string().required("Email Obrigatório").email("Email invalido"),
-    password: yup
-      .string()
-      .matches(passwordType, {
-        message:
-          "Deve conter minimo de 6 caractéres, deve ter no minimo uma letra maiuscula e uma minuscula, deve ter um número e ao menos um caractere especial(! # @ $ % &)",
-      })
-      .required("Senha Obrigatória"),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("password"), null], "As senhas não correspondem"),
-    bio: yup.string().required("Bio Obrigatória"),
-    contact: yup
-      .string()
-      .required("Contato Obrigatório")
-      .matches(cellType, { message: "Exemplo: 21 99999-9999" }),
-    course_module: yup.string().required("Modulo Obrigatório"),
-  });
+  const { onSubmitFunction } = useContext(UserContext);
+
   const {
     register,
     handleSubmit,
@@ -46,24 +20,8 @@ const RegisterUser = () => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-  const onSubmitFunction = async (body) => {
-    try {
-      const { data } = await axios.post(
-        "https://kenziehub.herokuapp.com/users",
-        body
-      );
-      notifySucessRegister();
-      setTimeout(() => {
-        navigate("/");
-      }, 5000);
-    } catch (err) {
-      console.log(err);
-      notifyErrorRegister();
-    }
-  };
-
   return (
-    <RegisterStyle>
+    <RegisterPage>
       <header>
         <h1>Kenzie Hub</h1>
         <Link to="/" className={"styleHeaderButton"}>
@@ -75,7 +33,9 @@ const RegisterUser = () => {
         <h3>Rápido e grátis, vamos nessa</h3>
         <div className="positionInputText">
           <p>Nome</p>
-          <div className="messageInput">{errors.name?.message}</div>
+          <div className="messageInput">
+            {errors.name && errors.name.message}
+          </div>
           <input
             className="inputRegister"
             type={"text"}
@@ -113,7 +73,7 @@ const RegisterUser = () => {
         </div>
         <div className="positionInputText">
           <p>Bio</p>
-          <div className="messageInput">{errors.bio?.message}</div>
+          <div className="messageInput">{errors.bio && errors.bio.message}</div>
           <input
             type={"text"}
             placeholder={"Fale sobre você"}
@@ -122,7 +82,9 @@ const RegisterUser = () => {
         </div>{" "}
         <div className="positionInputText">
           <p>Contato</p>
-          <div className="messageInput">{errors.contact?.message}</div>
+          <div className="messageInput">
+            {errors.contact && errors.contact.message}
+          </div>
           <input
             type={"text"}
             placeholder={"Digite seu contato"}
@@ -131,19 +93,21 @@ const RegisterUser = () => {
         </div>
         <div className="positionInputText">
           <p>Selecionar módulo</p>
-          <div className="messageInput">{errors.modulo?.message}</div>
+          <div className="messageInput">
+            {errors.modulo && errors.modulo.message}
+          </div>
           <select
             name="Selecione o módulo"
             id=""
             {...register("course_module")}
           >
             <option value="">Selecione o módulo</option>
-            <option value="modulo 1">Modulo 1 (Front-End Basico)</option>
-            <option value="modulo 2">Modulo 2 (Front-End Intermediario)</option>
-            <option value="modulo 3">Modulo 3 (Front-End Avançado)</option>
-            <option value="modulo 4">Modulo 4 (Back-End Intermediario) </option>
-            <option value="modulo 5">Modulo 5 (Back-End Avançado)</option>
-            <option value="modulo 6">Modulo 6 (Full-Stack Jr.)</option>
+            <option value="modulo 1">Modulo 1</option>
+            <option value="modulo 2">Modulo 2</option>
+            <option value="modulo 3">Modulo 3</option>
+            <option value="modulo 4">Modulo 4</option>
+            <option value="modulo 5">Modulo 5</option>
+            <option value="modulo 6">Modulo 6</option>
           </select>
         </div>
         <Button type={"submit"}>Cadastrar</Button>
@@ -174,7 +138,7 @@ const RegisterUser = () => {
         pauseOnHover
         theme="dark"
       />
-    </RegisterStyle>
+    </RegisterPage>
   );
 };
 export default RegisterUser;

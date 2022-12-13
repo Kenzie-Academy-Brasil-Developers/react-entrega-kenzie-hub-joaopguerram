@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
-html, body, figure, img, div, section, article, input, button,span, textarea, p, h1, h2, h3, h4, h5, h6, a, ul, li, ol, footer, aside, form, header{
+html, body, figure, img, div, section, article, input, button,span, textarea, p, h1, h2, h3, h4, h5, h6, a, ul, li, ol, footer, aside, form, header, label, select, option{
     margin: 0;
     padding: 0;
     border: 0;

@@ -1,7 +1,7 @@
 import { ButtonStyle } from "./style";
 import { ButtonStyleGrey } from "./style";
 
-export default function Button({ children, className, type, onClick }) {
+export function Button({ children, className, type, onClick }) {
   return (
     <ButtonStyle onClick={onClick} className={className} type={type}>
       {" "}
@@ -9,9 +9,13 @@ export default function Button({ children, className, type, onClick }) {
     </ButtonStyle>
   );
 }
-export function ButtonGrey({ children, className, onClick }) {
+export function ButtonGrey({ children, className, onClick, type }) {
   return (
-    <ButtonStyleGrey onClick={onClick} className={className} type="button">
+    <ButtonStyleGrey
+      onClick={() => onClick()}
+      className={className}
+      type={type}
+    >
       {" "}
       {children}
     </ButtonStyleGrey>
